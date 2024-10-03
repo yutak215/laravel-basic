@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// ルーティングを設定するコントローラを宣言する
+use App\Http\Controllers\HelloController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+// そのURLにアクセスしたときに実行する処理」をルーティングに直接記述する代わりに、HelloControllerのindexアクションを指定しました。
+// Route::HTTPリクエストメソッド名('URL', [コントローラ名::class, 'アクション名']);
 
-Route::get('/hello', function () {
-    return 'Hello, world!';
-});
+Route::get('/hello', [HelloController::class, 'index']);
