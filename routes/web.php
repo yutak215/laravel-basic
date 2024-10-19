@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 // ルーティングを設定するコントローラを宣言する
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\VendorController;
+// use App\Http\Controllers\VendorController;
+// use App\Http\Controllers\RequestController;
+// use App\Http\Controllers\ResponseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +22,25 @@ use App\Http\Controllers\VendorController;
 Route::get('/', function () {
     return view('welcome');
 });
-// そのURLにアクセスしたときに実行する処理」をルーティングに直接記述する代わりに、HelloControllerのindexアクションを指定しました。
-// Route::HTTPリクエストメソッド名('URL', [コントローラ名::class, 'アクション名']);
 
 Route::get('/hello', [HelloController::class, 'index']);
+
 Route::get('/products', [ProductController::class, 'index']);
 
-// 「/products/1」「/products/10」のようにURLの一部を変化させてその値を取得したい場合は、ルーティングでURLを設定するときにその一部を中括弧{}で囲みます。
-// 中括弧{}で囲む文字列は任意に決めて構いませんが、idやproduct_idなど、それが何の値なのかがわかるような文字列にしましょう。
+// Route::get('/products/create', [ProductController::class, 'create']);
+ 
+// Route::post('/products/store', [ProductController::class, 'store'])->name('products.store');
+
 Route::get('/products/{id}', [ProductController::class, 'show']);
 
-Route::get('/vendors/{id}', [VendorController::class, 'show']);
+// Route::get('/vendors/create', [VendorController::class, 'create']);
+
+// Route::post('/vendors/store', [VendorController::class, 'store'])->name('vendors.store');
+
+// Route::get('/vendors/{id}', [VendorController::class, 'show']);
+
+// Route::get('/requests/create', [RequestController::class, 'create']);
+
+// Route::post('/requests/confirm', [RequestController::class, 'confirm'])->name('requests.confirm');
+
+// Route::get('/responses', [ResponseController::class, 'index']);

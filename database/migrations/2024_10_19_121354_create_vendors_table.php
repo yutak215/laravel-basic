@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
-            // unique()は対象のカラムにUNIQUE制約（値の重複を禁止する）を付与するメソッドです。
-            // vendor_codeカラムは後ほど外部キーの参照先として指定しますが、外部キーの参照先には必ずUNIQUE制約を付与しなければなりません。
             $table->integer('vendor_code')->unique();
             $table->string('vendor_name');
             $table->timestamps();
