@@ -18,7 +18,7 @@ class VendorFactory extends Factory
     {
         return [
             'vendor_code' => fake()->unique()->randomNumber(5, true),
-             'vendor_name' => fake()->company() 
+            'vendor_name' => fake()->company()
         ];
     }
 }

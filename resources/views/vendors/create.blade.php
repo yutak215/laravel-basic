@@ -20,7 +20,7 @@
              </ul>
          </div>
      @endif    
-    <!-- action="{{ route('vendors.store') }}": フォームの送信先URL -->
+    <!-- action="{{ route('vendors.store') }}": フォームの送信先URL →送信後ルーティングによりレクエストコントローラーのメソッドが呼ばれバリデーションという流れ-->
     <!-- route('vendors.store') は、Laravelのルートヘルパー関数で、vendors.store という名前のルートに紐づくURLを生成 -->
      <form action="{{ route('vendors.store') }}" method="POST">
         
