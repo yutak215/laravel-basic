@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Vendor;
 use App\Http\Requests\ProductStoreRequest;
+use App\Events\ProductAddedEvent;
 
 
 class ProductController extends Controller
@@ -55,8 +56,20 @@ class ProductController extends Controller
         $product->product_name = $request->input('product_name');
         $product->price = $request->input('price');
         $product->vendor_code = $request->input('vendor_code');
+
+        // アップロードされたファイル（name="image"）が存在すれば処理を実行する
+        if ($request->hasFile('image')) {
+            // アップロードされたファイル（name="image"）をstorage/app/public/productsフォルダに保存し、戻り値（ファイルパス）を変数$image_pathに代入する
+            $image_path = $request->file('image')->store('public/products');
+            // ファイルパスからファイル名のみを取得し、Productインスタンスのimage_nameプロパティに代入する
+            $product->image_name = basename($image_path);
+        }
+
         // $product->save();: ここで新しい商品がデータベースに保存されます。Eloquent ORMを使って、products テーブルに新しいレコードが追加されます。
         $product->save();
+
+        // ProductAddedEventを発生させる
+        event(new ProductAddedEvent($product));
 
         // リダイレクト: return redirect("/products/{$product->id}");: 商品が保存された後、/products/{id} というURLにリダイレクトします。
         // このURLは、保存した商品の詳細ページであり、ユーザーはその新しく作成された商品を見ることができます。
